@@ -1,0 +1,176 @@
+<ion-content class="back">
+
+  <div class="Image_create">
+    <img src="assets/imgs/back-pro.png" style="height: 200px;width: 100%;object-fit: cover;margin-bottom: 65px;">
+    <div class="topbar">
+      <button ion-button clear no-margin style="height: auto;width: 30px;font-size: 21px;" (click)="back()">
+        <!-- <img src="assets/imgs/back.png" style="width: 12px;"> -->
+        <ion-icon color="light" name="ios-arrow-back-outline"></ion-icon>
+      </button>
+
+      <button ion-button clear style="height: auto;font-size: 19px;">
+        <!-- <img src="assets/imgs/notification.png" style="width: 15px;"> -->
+        <ion-icon color="light" name="ios-notifications-outline"></ion-icon>
+      </button>
+    </div>
+
+
+    <div class="div_top_influ">
+      <ion-item no-lines no-padding>
+        <h3>{{'COMPANY_NAME' | translate}}</h3>
+        <p>Male</p>
+      </ion-item>
+
+      <div class="flex_content_dv">
+        <div class="img_profile">
+          <img src="assets/imgs/add-img.png">
+        </div>
+        <div class="proflie_info">
+          <ion-row>
+            <ion-col col-6>
+              <div class="count">
+                <h3>450</h3>
+                <p>{{'POSTS' | translate}}</p>
+              </div>
+            </ion-col>
+            <ion-col col-6>
+              <div class="count">
+                <h3>200</h3>
+                <p>{{'TOTAL_HIRES' | translate}}</p>
+              </div>
+            </ion-col>
+
+          </ion-row>
+          <div class="btn_mess">
+            <button ion-button round small class="btn-theme">{{'MESSAGE' | translate}}</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <ion-segment [(ngModel)]="grown" class="segment_new">
+    <ion-segment-button value="Profile">
+      {{'PROFILE' | translate}}
+    </ion-segment-button>
+    <ion-segment-button value="Images">
+      {{'SUCCESS_JOBS' | translate}}
+    </ion-segment-button>
+    <ion-segment-button value="Service">
+      {{'OPEN_JOBS' | translate}}
+    </ion-segment-button>
+    <ion-segment-button value="Reviews">
+      {{'REVIEWS' | translate}}
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="grown">
+    <div *ngSwitchCase="'Profile'" style="padding: 0 16px;" class="scroll_div">
+      <h3 class="heading">{{'PROFILE_DETAILS' | translate}}</h3>
+
+      <ion-item no-lines no-padding class="detail_item">
+        <h3>{{'YOUTUBE' | translate}} </h3>
+        <p>Youtube.com</p>
+      </ion-item>
+
+      <ion-item no-lines no-padding class="detail_item">
+        <h3>{{'FACEBOOK' | translate}}</h3>
+        <p>www.facebook.com</p>
+      </ion-item>
+
+      <ion-item no-lines no-padding class="detail_item">
+        <h3>{{'INSTAGRAM' | translate}}</h3>
+        <p>www.instagram.com</p>
+      </ion-item>
+
+    </div>
+
+
+    <div *ngSwitchCase="'Images'" style="padding: 16px 16px;" class="scroll_div">
+
+      <ion-item class="job_item" no-lines no-padding *ngFor="let k of [1,2,3,4,5]">
+        <ion-avatar item-start>
+          <img src="assets/imgs/you.png">
+        </ion-avatar>
+        <p style="color: #acacac;">{{'COMPANY_NAME' | translate}}, USA</p>
+        <h2 style="color: #333;">Youtube</h2>
+        <h6 style="color: #575757;">$40k/ yr</h6>
+
+        <button ion-button round small class="btn-theme btn_view" item-end>{{'VIEW' | translate}}</button>
+      </ion-item>
+
+
+    </div>
+
+
+    <div *ngSwitchCase="'Service'" style="padding: 16px 16px;" class="scroll_div">
+
+      <ion-item class="job_item" no-lines no-padding *ngFor="let k of [1,2,3,4,5]">
+        <ion-avatar item-start>
+          <img src="assets/imgs/you.png">
+        </ion-avatar>
+        <p style="color: #acacac;">Company Name, USA</p>
+        <h2 style="color: #333;">Youtube</h2>
+        <h6 style="color: #575757;">$40k/ yr</h6>
+
+        <button ion-button round small class="btn-theme btn_view" item-end>{{'REQUEST' | translate}}</button>
+      </ion-item>
+
+    </div>
+
+    <div *ngSwitchCase="'Reviews'" style="padding: 16px 16px;" class="scroll_div">
+
+
+
+      <ion-item no-lines no-padding class="sec_review">
+        <div item-start class="start_rvw">
+          4.5
+        </div>
+        <h3>{{'AVERAGE_TOTAL_REVIEW' | translate}}</h3>
+        <img src="assets/imgs/star.png" style="width: 100px;">
+      </ion-item>
+
+      <div class="div_show">
+        <h3 class="heading"
+          style="display: flex;align-items: center;justify-content: space-between;margin: 0;min-height: 50px;">
+          {{'ALL_RATINGS' | translate}} <span class="filter_btn" (click)="ngIfCtrl()">{{'FILTER' | translate}} <ion-icon
+              name="ios-arrow-down-outline">
+            </ion-icon></span></h3>
+        <div class="filter_div" *ngIf="buttonClicked">
+          <ion-list>
+            <button ion-item no-padding no-lines><img src="assets/imgs/star1.png"> (3)</button>
+            <button ion-item no-padding no-lines><img src="assets/imgs/star2.png"> (0)</button>
+            <button ion-item no-padding no-lines><img src="assets/imgs/star3.png"> (1)</button>
+            <button ion-item no-padding no-lines><img src="assets/imgs/star4.png"> (2)</button>
+            <button ion-item no-padding no-lines><img src="assets/imgs/star5.png"> (5)</button>
+          </ion-list>
+        </div>
+      </div>
+
+      <div *ngFor="let k of [0,1,2,3,4]">
+        <ion-item class="detail_item detail_item2" no-lines no-padding>
+          <ion-avatar item-start>
+            <img src="assets/imgs/add-img.png">
+          </ion-avatar>
+          <h3>John Smith</h3>
+          <p>3 Days ago</p>
+        </ion-item>
+
+        <ion-item class="review_item" no-lines no-padding>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</p>
+          <div class="star_rate">
+            <img src="assets/imgs/star.png" style="width: 100px;"> <span class="start_rvw start_rvw2">
+              4.5
+            </span>
+          </div>
+        </ion-item>
+
+
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>
