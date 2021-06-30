@@ -1,3 +1,4 @@
+import { AuthProvider } from './../../providers/auth/auth';
 
 import { RestApiProvider } from './../../providers/rest-api/rest-api';
 import { Component } from '@angular/core';
@@ -14,7 +15,8 @@ export class FilterInfluPage {
   categories: any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController,
-    public api: RestApiProvider) {
+    public api: RestApiProvider,
+    public auth:AuthProvider) {
     this.getCategory();
     this.filter = this.navParams.get('Filter');
   }

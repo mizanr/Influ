@@ -1,3 +1,4 @@
+import { GooglePlusProvider } from './../../providers/google-plus/google-plus';
 import { TranslateService } from '@ngx-translate/core';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { AuthProvider } from './../../providers/auth/auth';
@@ -40,7 +41,8 @@ export class VerifyPage {
     public viewCtrl: ViewController,
     public alert: AlertProvider,
     public events: Events,
-    public trans:TranslateService) {
+    public trans: TranslateService,
+    public google: GooglePlusProvider) {
     this.email = this.navParams.get('Email');
   }
 
@@ -84,8 +86,16 @@ export class VerifyPage {
     }
     this.api.postData(data, 0, 'verifyUser').then((res: any) => {
       if (res.status == 1) {
+        this.google.googlePlus.logout().then(r => {
+          console.log('google Logout---------', r);
+
+        }).catch(e => {
+          console.log('google Logout Error---------', e);
+
+        });
         this.navCtrl.setRoot(TabsPage);
         this.auth.updateUserDetails(res.data);
+        this.events.publish('LoggedIn');
       }
       else {
         this.alert.show("Alert!", res.message);
@@ -133,7 +143,7 @@ export class VerifyPage {
     this.api.postData(data, 0, 'forget_password').then((res: any) => {
       if (res.status == 1) {
         // this.navCtrl.pop();
-        this.alert.show(this.trans.instant('ALERT'), this.trans.instant('VERIFICATION_IS_RESENT_TO_YOUR_EMAIL') );
+        this.alert.show(this.trans.instant('ALERT'), this.trans.instant('VERIFICATION_IS_RESENT_TO_YOUR_EMAIL'));
       }
       else {
       }

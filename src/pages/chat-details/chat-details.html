@@ -6,65 +6,85 @@
 -->
 <ion-header>
 	<ion-navbar>
-		<ion-title>John Smith</ion-title>
+		<ion-title *ngIf="job">{{job.title}}</ion-title>
 	</ion-navbar>
 </ion-header>
 
 <ion-content>
 
-	<div class="user">
-		<ion-row>
-			<ion-col col-2>
-				<div class="user_img">
-					<img src="assets/imgs/img1.png">
-				</div>
-			</ion-col>
-
-			<ion-col col-10>
-				<ion-item no-padding class="after_1">
-					<p class="dat">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-						Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-					<div class="rate">
-						<p class="dat">4:00 AM</p>
-					</div>
-				</ion-item>
-			</ion-col>
-		</ion-row>
+	<div class="noDatadiv" *ngIf="chat?.length==0">
+		<ion-icon name="ios-search-outline"></ion-icon>
+		<p>{{'NO_DATA_FOUND' | translate}}</p>
 	</div>
+	<div *ngFor="let item of chat">
 
-
-	<div class="user">
-		<ion-row>
-			<ion-col col-2>
-				<div class="user_img">
-					<img src="assets/imgs/img2.png">
-				</div>
-			</ion-col>
-
-			<ion-col col-10>
-				<ion-item no-padding class="after_1">
-					<p class="dat">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-						Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-					<div class="rate">
-						<p class="dat">4:00 AM</p>
+		<div *ngIf="item.sender.id!=auth.getCurrentUserId()" class="user">
+			<ion-row>
+				<ion-col col-2>
+					<div class="user_img">
+						<img [src]="item.sender.image">
 					</div>
-				</ion-item>
-			</ion-col>
-		</ion-row>
-	</div>
+				</ion-col>
 
+				<ion-col col-10>
+					<ion-item no-padding class="after_1">
+						<p *ngIf="item.msg_type=='text'" style="padding-top: 8px;" class="dat">{{item.message}}</p>
+						<img (click)="openSlider([{name:baseUrl+item.message}],0)" *ngIf="item.msg_type=='image'"
+							[src]="baseUrl+item.message">
+						<div *ngIf="item.msg_type=='file'">
+							<div (click)="openFile(item.message)" class="fileContainer">
+								<ion-icon name="md-document"></ion-icon>{{item.message}}
+							</div>
+						</div>
+						<div class="rate">
+							<p style="line-height: 13px !important;height: 17px;" class="dat">{{item.time_ago}}</p>
+						</div>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+		</div>
+
+
+		<div *ngIf="item.sender.id==auth.getCurrentUserId()" class="user">
+			<ion-row>
+				<ion-col col-10>
+					<ion-item no-padding class="after_1">
+						<p style="padding-top: 8px;" *ngIf="item.msg_type=='text'" class="dat">{{item.message}}</p>
+						<img (click)="openSlider([{name:baseUrl+item.message}],0)" *ngIf="item.msg_type=='image'"
+							[src]="baseUrl+item.message">
+						<div *ngIf="item.msg_type=='file'">
+							<div (click)="openFile(item.message)" class="fileContainer">
+								<ion-icon name="md-document"></ion-icon>{{item.message}}
+							</div>
+						</div>
+						<div class="rate">
+							<p style="line-height: 13px !important;height: 17px;" class="dat">{{item.time_ago}}</p>
+						</div>
+					</ion-item>
+				</ion-col>
+				<ion-col col-2>
+					<div class="user_img">
+						<img [src]="auth.getUserDetails().image">
+					</div>
+				</ion-col>
+
+			</ion-row>
+		</div>
+
+	</div>
 </ion-content>
 
 <ion-footer>
 	<div class="message">
 
 		<ion-item no-lines no-padding>
-			<button style="width: 41px;" ion-button no-padding item-start>
+			<button (click)="attach()" style="width: 41px;" ion-button no-padding item-start>
 				<!-- <img src="assets/imgs/attach.png"> -->
-				<ion-icon style="font-size: 28px;font-weight: bold;" class="icon-theme" name="ios-link"></ion-icon>
+				<ion-icon style="font-size: 28px;font-weight: bold;padding: 0 2px;" class="icon-theme" name="ios-link">
+				</ion-icon>
 			</button>
-			<input type="text" value="" placeholder="Message...">
-			<button ion-button no-padding item-end>
+			<input [(ngModel)]="msg" type="text" value="" placeholder="{{'ENTER_MESSAGE' | translate}}">
+			<button (click)="send()" [disabled]="sendBtnDisabledS || msg==''" ion-button no-padding item-end>
 				<!-- <img src="assets/imgs/send.png"> -->
 				<ion-icon style="font-size: 40px;" name="ios-send" class="icon-theme"></ion-icon>
 			</button>

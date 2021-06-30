@@ -34,7 +34,7 @@
       </ion-item>
 
 
-      <ion-item class="input_1" no-padding no-lines>
+      <ion-item *ngIf="auth?.getUserDetails()?.user_type==1" class="input_1" no-padding no-lines>
         <ion-label>{{'FILTER_BY_GENDER' | translate}}</ion-label>
         <ion-select placeholder="{{'FILTER_BY_GENDER' | translate}}"
           style="width: 100%;max-width: 100%;padding-left: 0;" [(ngModel)]="filter.gender">
@@ -65,7 +65,7 @@
         </ion-select>
       </ion-item>
 
-      <ion-item class="input_1" no-padding no-lines>
+      <ion-item *ngIf="auth?.getUserDetails()?.user_type==1" class="input_1" no-padding no-lines>
         <ion-label>{{'SELECT_AGE' | translate}}</ion-label>
         <ion-select placeholder="{{'SELECT_AGE' | translate}}" style="width: 100%;max-width: 100%;padding-left: 0;"
           [(ngModel)]="filter.age">
@@ -147,7 +147,8 @@
         </ion-select>
       </ion-item>
 
-      <button class="btn-theme" (click)="viewCtrl.dismiss(this.filter)" ion-button round full>{{'APPLY' | translate}}</button>
+      <button class="btn-theme" (click)="viewCtrl.dismiss(this.filter)" ion-button round full>{{'APPLY' |
+        translate}}</button>
     </ion-list>
   </div>
 </ion-content>

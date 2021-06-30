@@ -22,7 +22,7 @@
       translate}}</button>
     <button ion-button round (click)="deleteJob(k.Id)" small class="btn-theme btn_view">{{'DELETE' |
       translate}}</button>
-    <!-- <button ion-button round small class="btn-theme btn_view">View</button> -->
+    <button (click)="openApplied(k.Id)" style="margin: 0;" item-end ion-button round small class="btn-theme btn_view">Applied By</button>
   </ion-item>
 
 </ion-content>

@@ -27,7 +27,7 @@ export class GooglePlusProvider {
 
   constructor(
     public http: HttpClient,
-    private googlePlus: GooglePlus,
+    public googlePlus: GooglePlus,
     private loading: LoadingProvider
   ) {
     console.log('Hello GooglePlusProvider Provider');
@@ -60,6 +60,16 @@ export class GooglePlusProvider {
   }
 
 
-
+  silentLogin() {
+    return new Promise((resolve, reject) => {
+      this.googlePlus.trySilentLogin().then(r => {
+        console.log('silent Login response:=-=-=-=-=-=-=-', r);
+        resolve(1)
+      }).catch(e => {
+        console.log('silent Login Error:=-=-=-=-=-=-=-', e);
+        resolve(1)
+      })
+    });
+  }
 
 }

@@ -4,7 +4,7 @@ import { AlertProvider } from './../alert/alert';
 
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { App } from 'ionic-angular';
+import { App, Events } from 'ionic-angular';
 
 @Injectable()
 export class AuthProvider {
@@ -15,17 +15,18 @@ export class AuthProvider {
   localStorageNotiData = "InfluNotiData";
   localStorageNotiCount = "InfluNotiUnreadCount";
 
-  mediaLink = 'https://www.webwiders.in/WEB01/Influ/assets/media/'
+  mediaLink = 'https://www.webwiders.com/WEB01/Influ/assets/media/'
   onUserDetailChanged: BehaviorSubject<any> = new BehaviorSubject(null);
   onCateChanged: BehaviorSubject<any> = new BehaviorSubject(null);
   cartItem = new Array();
   unread_cound: any = 0;
   unread_chat_count: any = 0;
-
+  unread_noti: any = 0;
   constructor(public app: App,
     public alert: AlertProvider,
     public trans: TranslateService,
-    public google: GooglePlus) {
+    public google: GooglePlus,
+    public events: Events) {
     console.log('Hello AuthProvider Provider');
   }
 
@@ -182,12 +183,13 @@ export class AuthProvider {
     this.alert.confirmationAlert(this.trans.instant('ALERT'), this.trans.instant('DO_YOU_WANT_TO_LOGOUT')).then(r => {
       if (r) {
         this.app.getRootNav().popToRoot().then(() => {
-          this.google.logout().then(r => {
-            console.log('logout from gmail res------',r);
-            
+          this.events.publish('LogOut');
+          // this.google.logout().then(r => {
+            console.log('logout from gmail res------', r);
+
             this.removeUserDetails();
             window.location.href = "";
-          });
+          // });
         })
       }
     })

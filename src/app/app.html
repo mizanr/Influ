@@ -128,3 +128,15 @@
   </ion-content>
 </ion-menu>
 <ion-nav [root]="rootPage"></ion-nav>
+
+<ion-card class="downloadBar" *ngIf="download.isDownloading==true">
+  <button (click)="download.cancelDownload()" class="cancelDownload" ion-button icon-only small clear>
+    <ion-icon name="close"></ion-icon>
+  </button>
+  <div class="sub"><span>Downloading</span></div>
+  <div class="title"> {{download.downloadingTitle}}<div class="percentage">{{download.percentage}}%</div>
+  </div>
+  <ion-range [disabled]="true" min="0" max="100" [(ngModel)]="download.percentage">
+
+  </ion-range>
+</ion-card>

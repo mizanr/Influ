@@ -12,14 +12,21 @@
 
 <ion-content>
   <ion-list>
-    <ion-item-sliding #item *ngFor="let k of [0,1,2,3,4,5,6,7,8,9]" (click)="details()">
+
+    <div class="noDatadiv" *ngIf="noData">
+      <ion-icon name="ios-search-outline"></ion-icon>
+      <p>{{'NO_DATA_FOUND' | translate}}</p>
+    </div>
+    <ion-item-sliding #item *ngFor="let k of chatList" (click)="details(k)">
       <ion-item class="chat_list" no-lines>
         <ion-avatar item-start>
-          <img src="assets/imgs/img5.png">
+          <img [src]="k.sender.image">
         </ion-avatar>
-        <h3>John Smith</h3>
-        <p>You dont understand! I could had class You dont understand!...</p>
-        <span item-end style="font-size: 9px;position: absolute; right: 10px;top: 10px;color: #3370d0;">4:00 AM</span>
+        <h3 text-capitalize>{{k.sender.first_name}}&nbsp;{{k.sender.last_name}}</h3>
+        <p>{{k.last_message}}</p>
+        <span item-end
+          style="font-size: 9px;color: #3370d0;">{{k.human_time}}</span>
+        <ion-badge *ngIf="k.unread_count>0" class="bad" no-margin item-end>{{k.unread_count}}</ion-badge>
       </ion-item>
       <!-- <ion-item-options side="left">
         <button ion-button (click)="favorite(item)">Favorite</button>
@@ -27,7 +34,7 @@
       </ion-item-options> -->
 
       <ion-item-options side="right">
-        <button ion-button color="danger" (click)="unread(item)">{{'DELETE' | translate}}</button>
+        <button ion-button color="danger" (click)="deleteChat(k)">{{'DELETE' | translate}}</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>

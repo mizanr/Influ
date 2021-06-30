@@ -236,4 +236,7 @@ export class HomePage {
     }
     // }
   }
+  openNoti() {
+    this.navCtrl.push('NotificationPage');
+  }
 }

@@ -3,7 +3,7 @@ import { AuthProvider } from './../../providers/auth/auth';
 import { RestApiProvider } from './../../providers/rest-api/rest-api';
 import { AlertProvider } from './../../providers/alert/alert';
 import { Component, Input } from '@angular/core';
-import { ActionSheetController } from 'ionic-angular';
+import { ActionSheetController, NavController } from 'ionic-angular';
 
 /**
  * Generated class for the ServiceComponent component.
@@ -23,7 +23,8 @@ export class ServiceComponent {
     public actionSheetCtrl: ActionSheetController,
     public api: RestApiProvider,
     public auth: AuthProvider,
-    public trans: TranslateService) {
+    public trans: TranslateService,
+    public navCtrl: NavController) {
     console.log('Hello ServiceComponent Component');
     this.text = 'Hello World';
   }
@@ -101,4 +102,14 @@ export class ServiceComponent {
     })
   }
 
+
+  details(obj) {
+    this.navCtrl.push('ChatDetailsPage', { JobId: obj.Id, ReceiverId: obj.created_by.id })
+  }
+
+
+  openSlider(imgNameArr, index) {
+    let profileModal = this.api.modalCtrl.create('ImagesViewerPage', { imgs: imgNameArr, index: index });
+    profileModal.present();
+  }
 }

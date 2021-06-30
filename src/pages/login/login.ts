@@ -9,7 +9,7 @@ import { RestApiProvider } from './../../providers/rest-api/rest-api';
 import { SignupPage } from './../signup/signup';
 import { ForgotPage } from './../forgot/forgot';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AES256 } from '@ionic-native/aes-256';
 import { Platform } from 'ionic-angular/platform/platform';
@@ -28,7 +28,8 @@ export class LoginPage {
     public formBuilder: FormBuilder,
     public translateService: TranslateService,
     public encrypt: EncryptProvider,
-    public plt: Platform) {
+    public plt: Platform,
+    public events:Events) {
     this.loginForm = this.formBuilder.group({
       email: [null, Validators.compose([Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'), Validators.required])],
       password: [null, Validators.compose([Validators.pattern('[a-zA-Z0-9]{6,20}'), Validators.required])],
@@ -75,6 +76,7 @@ export class LoginPage {
           if (res.status == 1) {
             // this.alert.show("Alert!", res.message);
             // this.navCtrl.pop();
+            this.events.publish('LoggedIn');
             this.auth.updateUserDetails(res.data);
             if (res.data.email_verified == 1) {
               this.navCtrl.setRoot(TabsPage);

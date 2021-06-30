@@ -150,8 +150,8 @@
     "CANCEL": "Cancel",
     "COMPANY_REQUESTS": "Company Requests",
     "HIDE_POST": "Hide Post",
-    "BLOCK_COMPANY": "BLock Company",
-    "REQUEST_TO_JOB": "Request To Job",
+    "BLOCK_COMPANY": "Block Company",
+    "REQUEST_TO_JOB": "Request For Job",
     "AGE": "Age",
     "YEARS": "Years",
     "FOLLOWERS": "Followers",
@@ -221,7 +221,15 @@
     "JOB_REQUEST_LIST": "Job Request List",
     "YES": "Yes",
     "NO": "No",
-    "DO_YOU_WANT_TO_LOGOUT":"Do you want to logout?",
-    "ALERT":"Alert!"
-
+    "DO_YOU_WANT_TO_LOGOUT": "Do you want to logout?",
+    "ALERT": "Alert!",
+    "INFLUENCERS_APPLIED": "Applied Influencers",
+    "NOTIFICATIONS": "Notifications",
+    "ENTER_MESSAGE": "Enter Message...",
+    "SEND_IMAGE": "Send Image",
+    "SEND_FILE": "Send File",
+    "PLEASE_ENTER_MESSAGE": "Please enter message!",
+    "HAS_BEEN_ADDED_TO_DOWNLOAD_FOLDER": "has been added to your Download Folder.",
+    "CONFIRMATION": "Confirmation",
+    "FILE_ALREADY_EXISTS": "This file is already exists Still want to download?"
 }

@@ -13,7 +13,7 @@
   </ion-item>
   <ion-card class="card_feed">
 
-    <img height="200" width="100%" [src]="k.images[0].name" style="object-fit: cover;">
+    <img (click)="openSlider(k.images,0)" height="200" width="100%" [src]="k.images[0].name" style="object-fit: cover;">
 
     <ion-card-content>
       <ion-item no-lines no-padding class="info">
@@ -26,11 +26,12 @@
       <ion-col no-padding>
         <!-- (click)="hire(k.created_by.id,k.Id,k.price)" -->
         <button *ngIf="k.isPayment==0" ion-button
-          (click)="hire(k,k.created_by.id,k.Id,k.price);$event.stopPropagation()" small round class="btn-theme">{{'HIRE_NOW' | translate}}</button>
+          (click)="hire(k,k.created_by.id,k.Id,k.price);$event.stopPropagation()" small round
+          class="btn-theme">{{'HIRE_NOW' | translate}}</button>
         <button *ngIf="k.isPayment==1" disabled style="opacity: 1 !important;" ion-button small round
           class="btn-theme">{{'ALREADY_HIRED' | translate}}</button>
-        <button ion-button (click)="alert.show('Alert!','Coming Soon!');$event.stopPropagation()" small round
-          class="btn-theme">{{'MESSAGE_ME' | translate}}</button>
+        <button ion-button (click)="details(k);$event.stopPropagation()" small round class="btn-theme">{{'MESSAGE_ME' |
+          translate}}</button>
       </ion-col>
     </ion-row>
 

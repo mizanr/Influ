@@ -24,11 +24,11 @@ export class JobListPage {
     public auth: AuthProvider,
     public api: RestApiProvider,
     public alert: AlertProvider,
-    public trans:TranslateService) {
+    public trans: TranslateService) {
   }
 
-  ionViewWillEnter(){
-    this.getJob();   
+  ionViewWillEnter() {
+    this.getJob();
   }
 
   getJob() {
@@ -36,6 +36,7 @@ export class JobListPage {
       "user_id": { "value": this.auth.getCurrentUserId(), "type": "NO" },
     }
     this.api.postData(data, 0, 'GetMyJobList').then((res: any) => {
+      // this.getinflus();
       if (res.status == 1) {
         this.jobs = res.data;
       }
@@ -51,7 +52,7 @@ export class JobListPage {
   }
 
   deleteJob(i) {
-    this.alert.confirmationAlert(this.trans.instant('ALERT'),this.trans.instant('DO_YOU_WANT_TO_DELETE_THIS_JOB_POST') ).then(r => {
+    this.alert.confirmationAlert(this.trans.instant('ALERT'), this.trans.instant('DO_YOU_WANT_TO_DELETE_THIS_JOB_POST')).then(r => {
       if (r) {
         let data = {
           "id": { "value": i, "type": "NO" },
@@ -69,5 +70,9 @@ export class JobListPage {
 
   edit(i) {
     this.navCtrl.push('AddJobPage', { EditId: i })
+  }
+
+  openApplied(i) {
+    this.navCtrl.push('AppliedInfluencerPage', { JobId: i })
   }
 }

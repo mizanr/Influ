@@ -1,3 +1,7 @@
+import { DownloadProvider } from './../providers/download/download';
+import { GooglePlusProvider } from './../providers/google-plus/google-plus';
+import { RestApiProvider } from './../providers/rest-api/rest-api';
+import { OnesignalProvider } from './../providers/onesignal/onesignal';
 import { SuccessfullPage } from './../pages/successfull/successfull';
 
 import { AuthProvider } from './../providers/auth/auth';
@@ -23,13 +27,41 @@ export class MyApp {
     splashScreen: SplashScreen,
     public event: Events,
     public auth: AuthProvider,
-    public actionSheetCtrl: ActionSheetController) {
+    public actionSheetCtrl: ActionSheetController,
+    public onesignal: OnesignalProvider,
+    public api: RestApiProvider,
+    public google: GooglePlusProvider,
+    public download:DownloadProvider) {
     platform.ready().then(() => {
+      this.onesignal.init();
+      this.onesignal.open.subscribe((data: any) => {
+        if (data != 0 && data) {
+
+          if (data.other.screen == 'ChatDetail') {
+            setTimeout(() => {
+              this.nav.push('ChatDetailsPage', { JobId: data.job_id, receiver: data.receiver_id });
+            }, 700)
+          } else if (data.other.screen == 'InfluencerProfile') {
+            setTimeout(() => {
+              this.nav.push('InfluencerProfilePage', { InfluId: data.influId });
+            }, 700)
+          }
+
+        }
+      });
+      this.event.subscribe('LoggedIn', r => {
+        this.updateDeviceId();
+      });
+
+
+      this.event.subscribe('LogOut', r => {
+        this.removeDeviceId();
+      });
       this.lang = this.auth.getUserLanguage();
       console.log(this.lang);
       if (this.lang) {
         this.translate.setDefaultLang(this.lang);
-        if(this.lang=='he'){
+        if (this.lang == 'he') {
           this.platform.setDir('rtl', true);
         }
       } else {
@@ -48,6 +80,8 @@ export class MyApp {
       if (this.auth.isUserLoggedIn()) {
         if (this.auth.getUserDetails().email_verified == 1) {
           this.rootPage = TabsPage;
+          this.updateDeviceId();
+          this.google.silentLogin();
           // this.rootPage = 'SuccessfullPage';
 
         } else {
@@ -132,5 +166,36 @@ export class MyApp {
       ]
     });
     actionSheet.present();
+  }
+
+
+  updateDeviceId() {
+    if (this.platform.is('cordova')) {
+      this.onesignal.id().then(identity => {
+        console.log('-------Device Id----------', identity);
+        let Data = {
+          user_id: { "value": this.auth.getCurrentUserId(), "type": 'NO' },
+          device_id: { "value": identity, "type": 'NO' },
+        }
+        this.api.postData(Data, 0, 'UpdateDeviceId').then((result: any) => {
+          console.log(result);
+        })
+      })
+    }
+  }
+
+  removeDeviceId() {
+    // if(this.platform.is('cordova')){
+    // this.onesignal.id().then(identity => {
+    // console.log('-------Device Id----------',identity);
+    let Data = {
+      user_id: { "value": this.auth.getCurrentUserId(), "type": 'NO' },
+      device_id: { "value": '', "type": 'NO' },
+    }
+    this.api.postData(Data, 0, 'UpdateDeviceId').then((result: any) => {
+      console.log(result);
+    })
+    // })
+    // }
   }
 }

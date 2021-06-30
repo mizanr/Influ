@@ -21,7 +21,7 @@ export class PreloginPage {
     public google: GooglePlusProvider,
     public plt: Platform,
     public auth: AuthProvider,
-    public translate:TranslateService) {
+    public translate: TranslateService) {
   }
 
   ionViewWillEnter() {
@@ -31,6 +31,19 @@ export class PreloginPage {
     this.api.menuCtrl.enable(true);
   }
 
+  ionViewDidLoad() {
+    // this.google.silentLogin().then(r => {
+    //   if (r == 1) {
+    //     this.google.googlePlus.logout().then(r => {
+    //       console.log('google Logout---------', r);
+
+    //     }).catch(e => {
+    //       console.log('google Logout Error---------', e);
+
+    //     });
+    //   }
+    // });   
+  }
 
   fbLogin() {
     // if (this.plt.is('cordova')) {
@@ -115,6 +128,13 @@ export class PreloginPage {
     }
     this.api.postData(Data, 0, 'SocialLogin').then((result: any) => {
       console.log(result);
+      this.google.googlePlus.logout().then(r => {
+        console.log('google Logout---------', r);
+
+      }).catch(e => {
+        console.log('google Logout Error---------', e);
+
+      });
       if (result.status == 2) {
 
         this.navCtrl.push('SelectPage', { SignupData: SignUpDetail });

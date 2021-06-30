@@ -7,8 +7,8 @@ import { Injectable, NgZone } from '@angular/core';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 // import { Media, MediaObject } from '@ionic-native/media';
 import { File, FileEntry } from '@ionic-native/file';
-// import { FileChooser } from '@ionic-native/file-chooser';
-// import { FilePath } from '@ionic-native/file-path';
+import { FileChooser } from '@ionic-native/file-chooser';
+import { FilePath } from '@ionic-native/file-path';
 import { ImageProvider } from '../image/image';
 import { Platform } from 'ionic-angular';
 import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer';
@@ -43,8 +43,8 @@ export class MediaProvider {
     private zone: NgZone,
     public image: ImageProvider,
     private file: File,
-    // private filePath: FilePath,
-    // private fileChooser: FileChooser,
+    private filePath: FilePath,
+    private fileChooser: FileChooser,
     public imagePicker: ImagePicker,
     public plt: Platform,
     public imageResizer: ImageResizer
@@ -308,30 +308,30 @@ export class MediaProvider {
   // }
 
 
-  // getFile(){
-  //   return new Promise((resolve, reject) => {
-  //     this.fileChooser.open()
-  //     .then(uri => {
-  //       this.filePath.resolveNativePath(uri)
-  //       .then(filePath => {
-  //         this.loading.show();
-  //         this.readAsBlob(filePath).then((res)=>{
-  //           resolve(res);
-  //           this.loading.hide();
-  //         });
-  //       })
-  //       .catch(err => {
-  //         this.loading.hide();
-  //         resolve(0)
-  //       });
-  //        })
-  //     .catch(e => {
-  //       this.loading.hide();
-  //       resolve(0)
-  //     });
-  //   });
+  getFile(){
+    return new Promise((resolve, reject) => {
+      this.fileChooser.open()
+      .then(uri => {
+        this.filePath.resolveNativePath(uri)
+        .then(filePath => {
+          this.loading.show();
+          this.readAsBlob(filePath).then((res)=>{
+            resolve(res);
+            this.loading.hide();
+          });
+        })
+        .catch(err => {
+          this.loading.hide();
+          resolve(0)
+        });
+         })
+      .catch(e => {
+        this.loading.hide();
+        resolve(0)
+      });
+    });
 
-  // }
+  }
 
 
   getImageByCamera() {

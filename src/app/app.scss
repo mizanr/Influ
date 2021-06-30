@@ -338,3 +338,120 @@ ion-menu {
     padding-right: 0px !important;
   }
 }
+
+.badge-ios {
+  position: absolute;
+  z-index: 999;
+  font-size: 10px;
+  padding: 3px;
+  right: 28px;
+  /* color: bisque; */
+  background: #aa459d;
+}
+
+.mymodal {
+  // position: absolute !important;
+  // width: 90% !important;
+  // height: 65% !important;
+  // top: 20% !important;
+  // left: 5% !important;
+  background: rgba(62, 62, 62, 0.38) !important;
+  .modal-wrapper {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px);
+    top: 50% !important;
+    right: 12px;
+    // width: 60%;
+    left: 12px;
+    -webkit-transform: translate(0px, -50%);
+    transform: translate(0px, -50%) !important;
+    height: 250px !important;
+    position: absolute;
+    margin: 0 auto;
+    border-radius: 10px;
+  }
+}
+
+.downloadBar {
+  position: absolute;
+  z-index: 999;
+  bottom: 10px;
+  padding: 8px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2) !important;
+  .cancelDownload {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
+  border-radius: 5px;
+  .sub {
+    font-size: 12px;
+
+    &:after {
+      font-size: 15px;
+      line-height: 12px;
+      width: 10px;
+      white-space: nowrap;
+      display: inline-block;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      content: "...";
+      margin-left: 0px;
+      animation-name: example;
+      animation-duration: 3s;
+      animation-iteration-count: infinite;
+    }
+  }
+  @keyframes example {
+    0% {
+      width: 0px;
+    }
+    33.3% {
+      width: 5px;
+    }
+    66.6% {
+      width: 8px;
+    }
+    100% {
+      width: 11px;
+    }
+  }
+  .title {
+    font-size: 12px;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-right: 50px;
+    position: relative;
+    .percentage {
+      position: absolute;
+      text-align: center;
+      font-size: 12px;
+      top: 5px;
+      right: 0px;
+    }
+  }
+  ion-range {
+    opacity: 1 !important;
+    padding: 0px !important;
+    .range-slider {
+      height: 30px !important;
+    }
+    .range-bar {
+      top: 15px !important;
+      height: 3px !important;
+
+      &.range-bar-active {
+        background: color($colors, primary);
+      }
+    }
+    .range-knob-handle {
+      display: none !important;
+      height: 0px !important;
+      width: 0px !important;
+    }
+    .range-knob {
+      display: none !important;
+    }
+  }
+}

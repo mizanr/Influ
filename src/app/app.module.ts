@@ -1,3 +1,6 @@
+import { DownloadProvider } from './../providers/download/download';
+import { OneSignal } from '@ionic-native/onesignal';
+import { OnesignalProvider } from './../providers/onesignal/onesignal';
 import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 
 
@@ -27,7 +30,6 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera } from '@ionic-native/camera';
-import { File } from '@ionic-native/file';
 import { HttpClientModule } from '@angular/common/http';
 import { Keyboard } from '@ionic-native/keyboard';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -37,6 +39,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AES256 } from '@ionic-native/aes-256';
 import { EncryptProvider } from '../providers/encrypt/encrypt';
+import { FileChooser } from '@ionic-native/file-chooser';
+import { File } from '@ionic-native/file';
+import { FilePath } from '@ionic-native/file-path';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -95,6 +101,12 @@ export function createTranslateLoader(http: HttpClient) {
     PayPal,
     AES256,
     EncryptProvider,
+    OnesignalProvider,
+    OneSignal,
+    FileChooser,
+    FilePath,
+    FileTransfer,
+    DownloadProvider
   ]
 })
 export class AppModule { }

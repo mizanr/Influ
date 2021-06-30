@@ -1,7 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 
 import { Injectable } from '@angular/core';
-import { AlertController } from 'ionic-angular';
+import { AlertController, ToastController } from 'ionic-angular';
 // import { RestApiProvider } from '../../providers/rest-api/rest-api';
 
 const messages = {
@@ -257,7 +257,8 @@ const m = {
 export class AlertProvider {
   lang = JSON.parse(localStorage.getItem("yallaLanguage"));
   constructor(public alertCtrl: AlertController,
-    public trans: TranslateService
+    public trans: TranslateService,
+    public toastCtrl: ToastController
   ) { }
 
   showMessage(code: any) {
@@ -385,4 +386,13 @@ export class AlertProvider {
   }
 
 
+  presentToast(message: string, position: string) {
+
+    const toast = this.toastCtrl.create({
+      message: message,
+      duration: 2000,
+      position: position
+    });
+    toast.present();
+  }
 }
